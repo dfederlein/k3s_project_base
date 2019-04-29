@@ -1,0 +1,6 @@
+- local_action: slurp src=/tmp/node-token
+  register: node_token2
+  become: no
+
+- set_fact: 
+    nodetoken2: "{{ node_token2.content | b64decode | regex_replace('\n', '') }}"

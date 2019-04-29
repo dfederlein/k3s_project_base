@@ -1,0 +1,9 @@
+- name: Read Node Token from Master
+  slurp:
+    src: /var/lib/rancher/k3s/server/node-token
+  register: node_token
+  delegate_to: "{{ tag_master_true | first }}"
+  run_once: true
+  
+- set_fact: 
+    nodetoken2: "{{ node_token.content | b64decode | regex_replace('\n', '') }}"

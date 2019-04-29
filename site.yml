@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: yes
+  roles:
+    - role: common
+  
+- hosts: tag_Vagrant_True
+  become: yes
+  roles:
+    - role: vagrant-common 
+      when: '"tag_Vagrant_True" in group_names'
+
+- hosts: tag_cluster_true
+  become: yes
+  roles:
+    - role: download
+      when: '"tag_cluster_true" in group_names' 
+
+- hosts: tag_master_true
+  gather_facts: yes
+  become: yes
+  roles:
+    - role: master
+      when: '"tag_master_true" in group_names'
+
+- hosts: tag_node_true
+  gather_facts: yes
+  become: yes
+  roles:
+    - role: node 
+      when: '"tag_node_true" in group_names'  

@@ -1,0 +1,26 @@
+---
+- name: place authorized keys file
+  authorized_key:
+    user: vagrant
+    state: present
+    key: '{{ item }}'
+  with_items:
+    - https://github.com/dfederlein.keys
+    - https://github.com/risaacson.keys
+  #  - https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
+  when: '"tag_PrivNet_False" in group_names and place_authkeys == true'
+  
+- name: Include debian common
+  include: debian.yml
+  when: 'ansible_distribution == "Debian" and "tag_PrivNet_False" in group_names'
+  failed_when: ansible_distribution_major_version =< 9
+
+- name: Include ubuntu common
+  include: debian.yml
+  when: 'ansible_distribution == "Ubuntu" and "tag_PrivNet_False" in group_names'
+  failed_when: ansible_distribution_major_version =< 18
+
+- name: Include rhel common
+  include: rhel.yml
+  when: ansible_os_family == 'RedHat'
+  failed_when: ansible_distribution_major_version =< 7

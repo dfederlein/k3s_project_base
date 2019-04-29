@@ -1,0 +1,23 @@
+- name: install needed things
+  apt:
+    name: net-tools
+    state: present
+  when: '"tag_PrivNet_False" in group_names and "tag_Vagrant_True" in group_names'
+    
+- name: place interfaces file
+  template: 
+    src: interfaces-debian
+    dest: /etc/network/interfaces
+  when: '"tag_PrivNet_False" in group_names and "tag_Vagrant_True" in group_names'
+    
+- name: Reboot the server and wait for it to come back up.
+  reboot:
+  when: '"tag_PrivNet_False" in group_names and "tag_Vagrant_True" in group_names'
+  
+- name: remove second default route
+  command: route del default gw 10.0.2.2
+  when: '"tag_PrivNet_False" in group_names and "tag_Vagrant_True" in group_names'
+  
+- name: place correct route
+  command: route add default gw "{{ routeip }}"
+  when: '"tag_PrivNet_False" in group_names and "tag_Vagrant_True" in group_names'

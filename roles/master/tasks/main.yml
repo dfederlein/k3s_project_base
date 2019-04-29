@@ -1,0 +1,36 @@
+---
+- name: Copy K3s service file
+  register: k3s_service
+  template:
+    src: "k3s.service.j2"
+    dest: "{{ systemd_dir }}/k3s.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: selinux tweaks
+  shell: 'sudo semanage fcontext -a -t bin_t "/usr/local/bin/k3s" && sudo restorecon -v /usr/local/bin/k3s'
+  when: ansible_os_family == 'RedHat'
+
+- name: Enable and check K3s service
+  systemd:
+    name: k3s
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+    
+- name: Wait until the server node token is present before continuing
+  wait_for:
+    path: /var/lib/rancher/k3s/server/node-token
+
+- name: Read Node Token from Master
+  slurp:
+    src: /var/lib/rancher/k3s/server/node-token
+  register: node_token
+ 
+- set_fact: 
+    nodetoken: "{{ node_token.content | b64decode | regex_replace('\n', '') }}"
+
+- local_action: shell echo "{{ nodetoken }}" > /tmp/node-token
+  become: no
+  when: '"tag_PrivNet_True" in group_names or "tag_Vagrant_True" in group_names'

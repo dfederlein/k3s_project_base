@@ -1,0 +1,25 @@
+---
+- include: vagrant-nat.yml
+  when: '"tag_PrivNet_True" in group_names or "tag_Vagrant_True" in group_names'
+  
+- include: external-net.yml
+  when: '"tag_PrivNet_False" in group_names and "tag_Vagrant_True" not in group_names'
+  
+- name: Copy K3s service file
+  template:
+    src: "k3s.service.j2"
+    dest: "{{ systemd_dir }}/k3s.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: selinux tweaks
+  shell: 'sudo semanage fcontext -a -t bin_t "/usr/local/bin/k3s" && sudo restorecon -v /usr/local/bin/k3s'
+  when: ansible_os_family == 'RedHat'
+
+- name: Enable and check K3s service
+  systemd:
+    name: k3s
+    daemon_reload: yes
+    state: restarted
+    enabled: yes

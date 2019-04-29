@@ -1,0 +1,17 @@
+--- 
+- name: set systemd fact 
+  set_fact: 
+    systemd_dir: /lib/systemd/system
+
+- name: Stop and disable firewalld.
+  service:
+    name: firewalld
+    state: stopped
+    enabled: False
+  when: ansible_os_family == 'RedHat'
+
+- name: install semanage on rhel hosts
+  yum:
+    name: policycoreutils-python
+    state: present 
+  when: ansible_os_family == 'RedHat'
