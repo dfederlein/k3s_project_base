@@ -14,6 +14,12 @@ If you are using this playbook to install k3s on a group of hosts external to yo
 
 Note: If using the second scenario, you may need to adjust to your environment as needed, such as providing sudo/become information or setting up SSH keys on the hosts you want to install on.
 
+###Deploying a helm chart:
+
+If you want to deploy a helm chart post-cluster creation, modify the task on line 11 in the helmchart role tasks/main.yml file. Make sure you place the template as similar to provided currently by the "anchore.yaml.j2" file.
+
+As is currently, this project will deploy Anchore engine automatically.
+
 ## Requirements:
 
 ### Scenario 1: Local testing

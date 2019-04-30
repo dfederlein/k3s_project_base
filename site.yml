@@ -34,5 +34,5 @@
   gather_facts: yes
   become: yes
   roles:
-    - role: anchore-engine
+    - role: helmchart
       when: '"tag_master_true" in group_names'

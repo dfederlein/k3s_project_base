@@ -8,7 +8,7 @@
     mode: 0644
   when: '"tag_Vagrant_True" in group_names'
 
-- name: Copy anchore-engine helm manifest
+- name: Copy helm manifest
   template:
     src: "anchore.yaml.j2"
     dest: "/var/lib/rancher/k3s/server/manifests/anchore.yaml"
