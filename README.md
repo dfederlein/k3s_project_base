@@ -27,7 +27,8 @@ As is currently, this project will deploy Anchore engine automatically.
 - VirtualBox 5.2 or higher
 - Vagrant 2.0 or higher
 	- Vagrant-vbox plugin
-- Laptop with at least 12G ram 
+- Laptop with at least 12G ram
+- MacOS or Linux host operating system 
 
 ### Scenario 2: Installing k3s on VMs/computers on a network/in a cloud service
 
