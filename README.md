@@ -2,7 +2,7 @@
 Playbook and vagrant file to deploy k3s in testing environments.
 
 ## How to use:
-If you are testing k3s locally on your laptop or desktop computer, you need only clone this repository and issue the following command: 
+If you are testing k3s locally on your laptop or desktop computer, you need only clone this repository and issue the following command from inside the created directory: 
 
 `vagrant up`
 
