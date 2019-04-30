@@ -15,3 +15,13 @@
     name: policycoreutils-python
     state: present 
   when: ansible_os_family == 'RedHat'
+
+- name: setup k3s kubectl alias
+  become: no
+  lineinfile:
+    path: ~/.bash_aliases
+    line: 'alias k="k3s kubectl"'
+    regexp: '^alias k="k3s kubectl"$'
+    state: present
+    create: yes
+    insertafter: EOF

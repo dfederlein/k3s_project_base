@@ -1,0 +1,13 @@
+apiVersion: k3s.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: anchore-engine
+  namespace: kube-system
+spec:
+  chart: stable/anchore-engine
+  targetNamespace: anchore
+{% if "tag_Vagrant_True" in group_names %}
+  set:
+    postgresql.persistence.storageClass: local-path
+    postgresql.persistence.size: 8Gi
+{% endif %}

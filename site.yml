@@ -29,3 +29,10 @@
   roles:
     - role: node 
       when: '"tag_node_true" in group_names'  
+
+- hosts: tag_master_true
+  gather_facts: yes
+  become: yes
+  roles:
+    - role: anchore-engine
+      when: '"tag_master_true" in group_names'
