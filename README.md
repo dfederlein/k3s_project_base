@@ -25,3 +25,18 @@ Note: If using the second scenario, you may need to adjust to your environment a
 
 - Ansible Version 2.7 or higher
 - SSH Keys exchanged or ssh user/password set in hosts.ini
+- Debian 9 on target hosts, preferrably a minimal/headless install with no colocated services
+
+## Notes:
+
+### What it currently does:
+- Install k3s on debian hosts and join them in a cluster
+	- Either in a vagrant setup or on remote hosts
+	- Can support arm (ie: Raspbian/Raspberry Pi cluster installs)
+
+### To-Do list:
+- Add RHEL/Cent support
+
+## Don't Run With Scissors:
+
+THE SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, AND NO WARRANTY, EITHER EXPRESS OR IMPLIED, IS GIVEN. YOUR USE OF THE SOFTWARE IS AT YOUR SOLE RISK.
