@@ -45,6 +45,7 @@ As is currently, this project will deploy Anchore engine automatically.
 
 ### To-Do list:
 - Add RHEL/Cent support
+- per https://github.com/rancher/k3s/issues/24 need to fix virtualbox NAT issues with node communication
 
 ## Don't Run With Scissors:
 

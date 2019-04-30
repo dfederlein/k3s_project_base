@@ -37,33 +37,33 @@ cluster.vm.define "k3sm" do |config|
   end
 end
 
-cluster.vm.define "k3s1" do |config|
-  config.vm.box = "debian/stretch64"
-  config.ssh.insert_key = true
-  config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "4096"]
-    vb.customize ["modifyvm", :id, "--cpus", "2"]
-    vb.default_nic_type = "virtio"
-  end
-  config.vm.hostname = "k3s1"
-  config.vm.network :private_network,
-    ip: "172.16.2.7",
-    virtualbox__intnet: true,
-    nic_type: "virtio"
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "site.yml"
-    ansible.groups = {
-      "tag_PrivNet_True" => ["k3s1"],
-      "tag_Vagrant_True" => ["k3s1"],
-      "tag_cluster_true" => ["k3s1"],
-      "tag_node_true" => ["k3s1"],
-      "tag_Name_k3s1" => ["k3s1"],
-      "tag_PrivNet_True:vars" => {"place_authkeys" => "False",
-                                   "masterip" => "172.16.2.6",
-                                   "routeip" => "False"}
-    }
-  end
-end
+# cluster.vm.define "k3s1" do |config|
+#   config.vm.box = "debian/stretch64"
+#   config.ssh.insert_key = true
+#   config.vm.provider :virtualbox do |vb|
+#     vb.customize ["modifyvm", :id, "--memory", "4096"]
+#     vb.customize ["modifyvm", :id, "--cpus", "2"]
+#     vb.default_nic_type = "virtio"
+#   end
+#   config.vm.hostname = "k3s1"
+#   config.vm.network :private_network,
+#     ip: "172.16.2.7",
+#     virtualbox__intnet: true,
+#     nic_type: "virtio"
+#   config.vm.provision "ansible" do |ansible|
+#     ansible.playbook = "site.yml"
+#     ansible.groups = {
+#       "tag_PrivNet_True" => ["k3s1"],
+#       "tag_Vagrant_True" => ["k3s1"],
+#       "tag_cluster_true" => ["k3s1"],
+#       "tag_node_true" => ["k3s1"],
+#       "tag_Name_k3s1" => ["k3s1"],
+#       "tag_PrivNet_True:vars" => {"place_authkeys" => "False",
+#                                    "masterip" => "172.16.2.6",
+#                                    "routeip" => "False"}
+#     }
+#   end
+# end
 
 # cluster.vm.define "k3s2" do |config|
 #   config.vm.box = "debian/stretch64"
