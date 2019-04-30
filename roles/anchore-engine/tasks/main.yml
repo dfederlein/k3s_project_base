@@ -1,0 +1,17 @@
+---
+- name: Copy local-path-storage manifest
+  template:
+    src: "local-path-storage.yaml.j2"
+    dest: "/var/lib/rancher/k3s/server/manifests/local-path-storage.yaml"
+    owner: root
+    group: root
+    mode: 0644
+  when: '"tag_Vagrant_True" in group_names'
+
+- name: Copy anchore-engine helm manifest
+  template:
+    src: "anchore.yaml.j2"
+    dest: "/var/lib/rancher/k3s/server/manifests/anchore.yaml"
+    owner: root
+    group: root
+    mode: 0644
