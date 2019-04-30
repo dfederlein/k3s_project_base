@@ -1,6 +1,8 @@
 # K3s Testing Playbook
 Playbook and vagrant file to deploy k3s in testing environments.
 
+WARNING: Because I use this as a testing base, there will be roles added and removed to place helm charts to deploy services for me to test. I'm not really branching this, so HEAD will always be a moving target. If you want to adapt this to your own use, please fork and modify as needed. I probably won't accept PRs to this unless it directly relates to a project I am working on.
+
 ## How to use:
 If you are testing k3s locally on your laptop or desktop computer, you need only clone this repository and issue the following command from inside the created directory: 
 
